@@ -29,8 +29,7 @@ type logger struct {
 func NewLogger(level uint32) Logger {
 	l := log.New()
 	l.SetLevel(log.Level(level))
-	logFormatter := &log.TextFormatter{
-		FullTimestamp:   true,
+	logFormatter := &log.JSONFormatter {
 		TimestampFormat: "2006-01-02 15:04:05",
 	}
 	l.Formatter = logFormatter
