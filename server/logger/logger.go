@@ -26,13 +26,23 @@ type logger struct {
 }
 
 // NewLogger returns a new Logger instance backed by Logrus.
-func NewLogger(level uint32) Logger {
+func NewLogger(level uint32, format string) Logger {
 	l := log.New()
 	l.SetLevel(log.Level(level))
-	logFormatter := &log.JSONFormatter {
-		TimestampFormat: "2006-01-02 15:04:05",
+	switch format {
+	case "json":
+		logFormatter := &log.JSONFormatter {
+			TimestampFormat: "2006-01-02 15:04:05",
+			DisableHTMLEscape: false,
+		}
+		l.Formatter = logFormatter
+	default:
+		logFormatter := &log.TextFormatter{
+			FullTimestamp:   true,
+			TimestampFormat: "2006-01-02 15:04:05",
+		}
+		l.Formatter = logFormatter
 	}
-	l.Formatter = logFormatter
 	return &logger{l}
 }
 

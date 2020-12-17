@@ -25,6 +25,7 @@ func TestNewConfigFromFile(t *testing.T) {
 	require.Equal(t, uint32(5), config.LogLevel)
 	require.True(t, config.LogRecovery)
 	require.True(t, config.LogRaft)
+	require.Equal(t, "json", config.LogType)
 	require.Equal(t, "/foo", config.DataDir)
 	require.Equal(t, 10, config.BatchMaxMessages)
 	require.Equal(t, time.Second, config.BatchMaxTime)

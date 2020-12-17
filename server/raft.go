@@ -174,13 +174,13 @@ func (r *raftLogger) Write(b []byte) (int, error) {
 	if levelStart != -1 {
 		switch b[levelStart+1] {
 		case 'D': // [DEBUG]
-			r.logger.Debugf("%s", b[levelStart+8:])
+			r.logger.Debugf("%s", b[levelStart+9:])
 		case 'I': // [INFO]
-			r.logger.Infof("%s", b[levelStart+7:])
+			r.logger.Infof("%s", b[levelStart+8:])
 		case 'W': // [WARN]
-			r.logger.Warnf("%s", b[levelStart+7:])
+			r.logger.Warnf("%s", b[levelStart+8:])
 		case 'E': // [ERR]
-			r.logger.Errorf("%s", b[levelStart+6:])
+			r.logger.Errorf("%s", b[levelStart+8:])
 		default:
 			r.logger.Infof("%s", b)
 		}

@@ -12,6 +12,7 @@ logging:
   level: debug
   recovery: true
   raft: true
+  type: json
 
 streams:
   retention.max:

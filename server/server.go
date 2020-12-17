@@ -85,7 +85,7 @@ func New(config *Config) *Server {
 	if config.DataDir == "" {
 		config.DataDir = filepath.Join("/tmp", "liftbridge", config.Clustering.Namespace)
 	}
-	logger := logger.NewLogger(config.LogLevel)
+	logger := logger.NewLogger(config.LogLevel, config.LogType)
 	if config.LogSilent {
 		logger.SetWriter(ioutil.Discard)
 	}

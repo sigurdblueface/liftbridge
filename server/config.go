@@ -64,6 +64,7 @@ const (
 	configLoggingLevel    = "logging.level"
 	configLoggingRecovery = "logging.recovery"
 	configLoggingRaft     = "logging.raft"
+	configLoggingType	  = "logging.type"
 
 	configBatchMaxMessages = "batch.max.messages"
 	configBatchMaxTime     = "batch.max.time"
@@ -121,6 +122,7 @@ var configKeys = map[string]struct{}{
 	configLoggingLevel:                         {},
 	configLoggingRecovery:                      {},
 	configLoggingRaft:                          {},
+	configLoggingType: 							{},
 	configBatchMaxMessages:                     {},
 	configBatchMaxTime:                         {},
 	configTLSKey:                               {},
@@ -303,6 +305,7 @@ type Config struct {
 	Host                string
 	Port                int
 	LogLevel            uint32
+	LogType				string
 	LogRecovery         bool
 	LogRaft             bool
 	LogSilent           bool
@@ -328,6 +331,7 @@ func NewDefaultConfig() *Config {
 		Port: DefaultPort,
 	}
 	config.LogLevel = uint32(log.InfoLevel)
+	config.LogType = "plain"
 	config.BatchMaxMessages = defaultBatchMaxMessages
 	config.MetadataCacheMaxAge = defaultMetadataCacheMaxAge
 	config.Clustering.ServerID = nuid.Next()
@@ -468,6 +472,10 @@ func NewConfig(configFile string) (*Config, error) { // nolint: gocyclo
 		}
 
 		config.LogLevel = levelInt
+	}
+
+	if v.IsSet(configLoggingType) {
+		config.LogType = v.GetString(configLoggingType)
 	}
 
 	if v.IsSet(configLoggingRecovery) {
